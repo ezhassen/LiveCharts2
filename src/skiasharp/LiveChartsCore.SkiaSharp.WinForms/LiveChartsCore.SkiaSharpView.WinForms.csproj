@@ -55,7 +55,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 
     <!--
     workaround #250115
@@ -68,30 +68,15 @@
     On net 462 the code will throw when LiveCharts.UseGPU is set to true, and will
     explain the user that the feature is not supported on net 462.
     -->
-    <PackageReference
-      Condition="'$(TargetFramework)' == 'net462'"
-      Include="SkiaSharp.Views.WindowsForms "
-      Version="$(SkiaSharpVersion)" />
-    <PackageReference
-      Condition="'$(TargetFramework)' == 'net462'"
-      Include="SkiaSharp.HarfBuzz"
-      Version="$(SkiaSharpVersion)" />
+    <PackageReference Condition="'$(TargetFramework)' == 'net462'" Include="SkiaSharp.Views.WindowsForms " Version="$(SkiaSharpVersion)" />
+    <PackageReference Condition="'$(TargetFramework)' == 'net462'" Include="SkiaSharp.HarfBuzz" Version="$(SkiaSharpVersion)" />
 
-    <PackageReference
-      Condition="'$(TargetFramework)' != 'net462'"
-      Include="SkiaSharp.HarfBuzz"
-      Version="$(SkiaSharpVersion)" />
+    <PackageReference Condition="'$(TargetFramework)' != 'net462'" Include="SkiaSharp.HarfBuzz" Version="$(LatestSkiaSharpVersion)" />
     
-    <PackageReference
-      Condition="'$(TargetFramework)' != 'net462' And '$(TargetFramework)' != 'net9.0-windows'"
-      Include="SkiaSharp.Views.WindowsForms"
-      Version="$(SkiaSharpVersion)" />
+    <PackageReference Condition="'$(TargetFramework)' != 'net462' And '$(TargetFramework)' != 'net9.0-windows'" Include="SkiaSharp.Views.WindowsForms" Version="$(LatestSkiaSharpVersion)" />
 
     <!--Custom build of SkiaSharpEzz.Views.WindowsForms for net9.0-windows only-->
-    <PackageReference
-      Condition="'$(TargetFramework)' == 'net9.0-windows'"
-      Include="SkiaSharpEzz.Views.WindowsForms "
-      Version="2.88.9" />
+    <PackageReference Condition="'$(TargetFramework)' == 'net9.0-windows'" Include="SkiaSharpEzz.Views.WindowsForms " Version="3.119.0" />
     
   </ItemGroup>
 
@@ -101,6 +86,10 @@
 
   <ItemGroup>
     <None Include="images\icon.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="SkiaSharpEzz.Views.WindowsForms" Version="3.119.0" />
   </ItemGroup>
 
 </Project>
