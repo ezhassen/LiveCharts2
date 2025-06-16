@@ -23,7 +23,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
@@ -60,8 +59,8 @@ public class PieChart : Chart, IPieChartView
         : base(tooltip, legend)
     {
         _seriesObserver = new CollectionDeepObserver<ISeries>(
-           (object? sender, NotifyCollectionChangedEventArgs e) => OnPropertyChanged(),
-           (object? sender, PropertyChangedEventArgs e) => OnPropertyChanged(),
+           (sender, e) => OnPropertyChanged(),
+           (sender, e) => OnPropertyChanged(),
            true);
 
         Series = new ObservableCollection<ISeries>();
@@ -87,20 +86,24 @@ public class PieChart : Chart, IPieChartView
             OnPropertyChanged();
         }
     }
-
     /// <inheritdoc cref="IPieChartView.IsClockwise" />
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public bool IsClockwise { get => _isClockwise; set { _isClockwise = value; OnPropertyChanged(); } }
 
     /// <inheritdoc cref="IPieChartView.InitialRotation" />
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public double InitialRotation { get => _initialRotation; set { _initialRotation = value; OnPropertyChanged(); } }
 
     /// <inheritdoc cref="IPieChartView.MaxAngle" />
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public double MaxAngle { get => _maxAngle; set { _maxAngle = value; OnPropertyChanged(); } }
 
     /// <inheritdoc cref="IPieChartView.MaxValue" />
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public double MaxValue { get => _maxValue; set { _maxValue = value; OnPropertyChanged(); } }
 
     /// <inheritdoc cref="IPieChartView.MinValue" />
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public double MinValue { get => _minValue; set { _minValue = value; OnPropertyChanged(); } }
 
     /// <inheritdoc cref="IChartView.GetPointsAt(LvcPointD, FindingStrategy, FindPointFor)"/>

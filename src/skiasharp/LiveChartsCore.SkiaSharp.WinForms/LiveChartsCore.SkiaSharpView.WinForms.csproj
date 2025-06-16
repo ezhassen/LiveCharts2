@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
     <LangVersion>$(GlobalLangVersion)</LangVersion>
@@ -21,22 +21,27 @@
       -->
       net6.0-windows;
       net8.0-windows;
-      net6.0-windows10.0.19041;
-      net8.0-windows10.0.19041
+      <!--net6.0-windows10.0.19041.0;
+      net8.0-windows10.0.19041.0;-->
+      net9.0-windows;
     </TargetFrameworks>
     
     <AssemblyName>LiveChartsCore.SkiaSharpView.WinForms</AssemblyName>
     <RootNamespace>LiveChartsCore.SkiaSharpView.WinForms</RootNamespace>
     <Version>$(LiveChartsVersion)</Version>
     <PackageIcon>icon.png</PackageIcon>
-    <Description>Simple, flexible, interactive and powerful data visualization for WindowsForms.</Description>
+    <Description>Simple, flexible, interactive and powerful data visualization for WindowsForms. (A fork To be used in .net9.0-windows without dependency issues)</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>$(LiveChartsAuthors)</Authors>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
-    <RepositoryUrl>https://github.com/beto-rodriguez/LiveCharts2</RepositoryUrl>
+    <!--For showing custom build package in Github page-->
+    <RepositoryUrl>https://github.com/ezhassen/LiveCharts2</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/ezhassen/LiveCharts2</PackageProjectUrl>
+    <PackageId>LiveChartsCoreEzz.SkiaSharpView.WinForms</PackageId>
+
 
     <Deterministic>true</Deterministic>
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
@@ -74,12 +79,20 @@
 
     <PackageReference
       Condition="'$(TargetFramework)' != 'net462'"
-      Include="SkiaSharp.Views.WindowsForms "
-      Version="$(LatestSkiaSharpVersion)" />
-    <PackageReference
-      Condition="'$(TargetFramework)' != 'net462'"
       Include="SkiaSharp.HarfBuzz"
-      Version="$(LatestSkiaSharpVersion)" />
+      Version="$(SkiaSharpVersion)" />
+    
+    <PackageReference
+      Condition="'$(TargetFramework)' != 'net462' And '$(TargetFramework)' != 'net9.0-windows'"
+      Include="SkiaSharp.Views.WindowsForms"
+      Version="$(SkiaSharpVersion)" />
+
+    <!--Custom build of SkiaSharpEzz.Views.WindowsForms for net9.0-windows only-->
+    <PackageReference
+      Condition="'$(TargetFramework)' == 'net9.0-windows'"
+      Include="SkiaSharpEzz.Views.WindowsForms "
+      Version="2.88.9" />
+    
   </ItemGroup>
 
   <ItemGroup>

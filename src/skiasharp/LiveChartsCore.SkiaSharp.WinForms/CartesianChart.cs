@@ -176,6 +176,7 @@ public class CartesianChart : Chart, ICartesianChartView
     public FindingStrategy FindingStrategy { get => _findingStrategy; set { _findingStrategy = value; OnPropertyChanged(); } }
 
     /// <inheritdoc cref="ICartesianChartView.MatchAxesScreenDataRatio" />
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public bool MatchAxesScreenDataRatio
     {
         get => _matchAxesScreenDataRatio;
