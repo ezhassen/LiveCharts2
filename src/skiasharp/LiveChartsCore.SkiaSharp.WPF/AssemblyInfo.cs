@@ -22,13 +22,13 @@
 
 using System.Windows;
 
-#if !DEBUG && NET462
-using System.Reflection;
-[assembly: AssemblyKeyFile("./../../../LiveCharts.snk")]
-#else
+// #if !DEBUG && NET462
+// using System.Reflection;
+// [assembly: AssemblyKeyFile("./../../../LiveCharts.snk")]
+// #else
 using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("LiveChartsCore.BackersPackage")]
-#endif
+// #endif
 
 [assembly: ThemeInfo(
     ResourceDictionaryLocation.None, //where theme specific resource dictionaries are located

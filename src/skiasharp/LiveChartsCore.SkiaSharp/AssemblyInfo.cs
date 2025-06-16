@@ -20,15 +20,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#if !DEBUG && NET462
-using System.Reflection;
+// #if !DEBUG && NET462
+// using System.Reflection;
 
-[assembly: AssemblyKeyFile("./../../../LiveCharts.snk")]
+// [assembly: AssemblyKeyFile("./../../../LiveCharts.snk")]
 
-#else
+// #else
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("LiveChartsCore.BackersPackage")]
 [assembly: InternalsVisibleTo("LiveChartsCore.UnitTesting")]
 
-#endif
+// #endif
