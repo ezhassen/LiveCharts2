@@ -13,6 +13,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormsSample", "samples\W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModelsSamples", "samples\ViewModelsSamples\ViewModelsSamples.csproj", "{FDA82E2F-B072-421E-BE43-FB0A473E76BF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SkiaSharpEzz.Views.WindowsForms", "SkiaSharpEzz.Views.WindowsForms", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkiaSharpEzz.Views.WindowsForms", "..\..\Projects_Helpers\SkiaSharpEzz.Views.WindowsForms\SkiaSharpEzz.Views.WindowsForms\SkiaSharpEzz.Views.WindowsForms.csproj", "{F23AC043-1CDF-0B4D-1E88-1B2C0DF1BA58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkiaSharpEzz.Views.WindowsFormsV2", "..\..\Projects_Helpers\SkiaSharpEzz.Views.WindowsForms\SkiaSharpEzz.Views.WindowsFormsV2\SkiaSharpEzz.Views.WindowsFormsV2.csproj", "{40FE845B-9247-3A8E-46F5-C52843216A27}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,9 +45,21 @@ Global
 		{FDA82E2F-B072-421E-BE43-FB0A473E76BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDA82E2F-B072-421E-BE43-FB0A473E76BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDA82E2F-B072-421E-BE43-FB0A473E76BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F23AC043-1CDF-0B4D-1E88-1B2C0DF1BA58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F23AC043-1CDF-0B4D-1E88-1B2C0DF1BA58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F23AC043-1CDF-0B4D-1E88-1B2C0DF1BA58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F23AC043-1CDF-0B4D-1E88-1B2C0DF1BA58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40FE845B-9247-3A8E-46F5-C52843216A27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40FE845B-9247-3A8E-46F5-C52843216A27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40FE845B-9247-3A8E-46F5-C52843216A27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40FE845B-9247-3A8E-46F5-C52843216A27}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F23AC043-1CDF-0B4D-1E88-1B2C0DF1BA58} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{40FE845B-9247-3A8E-46F5-C52843216A27} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2FCF03AF-AB77-4031-B20F-E5C1692B60CD}

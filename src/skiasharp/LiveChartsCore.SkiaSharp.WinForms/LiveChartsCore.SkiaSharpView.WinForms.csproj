@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
     <LangVersion>$(GlobalLangVersion)</LangVersion>
@@ -47,6 +47,9 @@
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    
+    <!--<DefineConstants Condition="'$(TargetFramework)' == 'net9.0-windows'">$(DefineConstants);UseLatestSkiaSharpVersion</DefineConstants>-->
+    <DefineConstants Condition="'$(TargetFramework)' != 'net462'">$(DefineConstants);UseCustomViewBuild</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -68,28 +71,29 @@
     On net 462 the code will throw when LiveCharts.UseGPU is set to true, and will
     explain the user that the feature is not supported on net 462.
     -->
-    <PackageReference Condition="'$(TargetFramework)' == 'net462'" Include="SkiaSharp.Views.WindowsForms " Version="$(SkiaSharpVersion)" />
-    <PackageReference Condition="'$(TargetFramework)' == 'net462'" Include="SkiaSharp.HarfBuzz" Version="$(SkiaSharpVersion)" />
+    <PackageReference Condition="!$(DefineConstants.Contains('UseCustomViewBuild'))" Include="SkiaSharp.Views.WindowsForms " Version="$(SkiaSharpVersion)" />
+    <!--<PackageReference Condition="'$(DefineConstants.Contains('UseCustomViewBuild'))' == 'false'" Include="SkiaSharp.HarfBuzz" Version="$(SkiaSharpVersion)" />-->
 
-    <PackageReference Condition="'$(TargetFramework)' != 'net462'" Include="SkiaSharp.HarfBuzz" Version="$(LatestSkiaSharpVersion)" />
+    <PackageReference Include="SkiaSharp.HarfBuzz" Version="$(SkiaSharpVersion)" />
     
-    <PackageReference Condition="'$(TargetFramework)' != 'net462' And '$(TargetFramework)' != 'net9.0-windows'" Include="SkiaSharp.Views.WindowsForms" Version="$(LatestSkiaSharpVersion)" />
-
     <!--Custom build of SkiaSharpEzz.Views.WindowsForms for net9.0-windows only-->
-    <PackageReference Condition="'$(TargetFramework)' == 'net9.0-windows'" Include="SkiaSharpEzz.Views.WindowsForms " Version="3.119.0" />
+    <!--<PackageReference Condition="'$(TargetFramework)' == 'net9.0-windows'" Include="SkiaSharpEzz.Views.WindowsForms " Version="3.119.0" />-->
     
   </ItemGroup>
 
   <ItemGroup>
+
+    <!--<ProjectReference Condition="'$(DefineConstants.Contains('UseLatestSkiaSharpVersion'))' == 'true'" Include="..\..\..\..\..\Projects_Helpers\SkiaSharpEzz.Views.WindowsForms\SkiaSharpEzz.Views.WindowsFormsV2\SkiaSharpEzz.Views.WindowsForms.csproj" />
+    <ProjectReference Condition="'$(DefineConstants.Contains('UseLatestSkiaSharpVersion'))' != 'true'" Include="..\..\..\..\..\Projects_Helpers\SkiaSharpEzz.Views.WindowsForms\SkiaSharpEzz.Views.WindowsFormsV2\SkiaSharpEzz.Views.WindowsFormsV2.csproj" />-->
+
+    <!--Just use skiaSharp v2 for new-->
+    <ProjectReference Condition="$(DefineConstants.Contains('UseCustomViewBuild'))" Include="..\..\..\..\..\Projects_Helpers\SkiaSharpEzz.Views.WindowsForms\SkiaSharpEzz.Views.WindowsFormsV2\SkiaSharpEzz.Views.WindowsFormsV2.csproj" />
+
     <ProjectReference Include="..\LiveChartsCore.SkiaSharp\LiveChartsCore.SkiaSharpView.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="images\icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Update="SkiaSharpEzz.Views.WindowsForms" Version="3.119.0" />
-  </ItemGroup>
-
+  
 </Project>

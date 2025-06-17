@@ -45,10 +45,90 @@ public class LabelGeometry : BaseLabelGeometry, IDrawnElement<SkiaSharpDrawingCo
         TransformOrigin = new LvcPoint(0f, 0f);
     }
 
+    //#if UseLatestSkiaSharpVersion
+    //    private SKFont? _skFont;
+    //    //private SKShaper? _shaper;
+    //#endif
+
     /// <inheritdoc cref="IDrawnElement{TDrawingContext}.Draw(TDrawingContext)" />
     public virtual void Draw(SkiaSharpDrawingContext context)
     {
         var paint = context.ActiveSkiaPaint;
+
+        /*#if UseLatestSkiaSharpVersion
+
+        //        // Create SKFont if not already created
+        //#pragma warning disable CS0618 // Type or member is obsolete
+        //        _skFont ??= new SKFont(paint.Typeface, TextSize);
+        //#pragma warning restore CS0618 // Type or member is obsolete
+
+
+                var p = Padding;
+                var bg = Background;
+
+                var size = Measure();
+
+                var isFirstLine = true;
+                var verticalPos =
+                    _lines > 1
+                        ? VerticalAlign switch // respect alignment on multiline labels
+                        {
+                            Align.Start => 0,
+                            Align.Middle => -_lines * _maxTextHeight * 0.5f,
+                            Align.End => -_lines * _maxTextHeight,
+                            _ => 0
+                        }
+                        : 0;
+
+                var textBounds = new SKRect();
+                //_shaper ??= new SKShaper(_skFont.Typeface);
+                //var shaper = _skFont.Typeface is not null ? new SKShaper(_skFont.Typeface) : null;
+
+                //#pragma warning disable CS0618 // Type or member is obsolete
+                //        using var _skFont = new SKFont(paint.Typeface, TextSize);
+                //#pragma warning restore CS0618 // Type or member is obsolete
+
+                foreach (var line in GetLines(context.ActiveSkiaPaint))
+                {
+                    //var ao = new LvcPoint();
+                    //if (!string.IsNullOrEmpty(line))
+                    //{
+                    //_ = paint.MeasureText(line, ref textBounds);
+                    using var _skFont = new SKFont(paint.Typeface, TextSize);
+                    _ = _skFont.MeasureText(line, out textBounds, paint: paint);
+                    //using var shaper = _skFont.Typeface is not null ? new SKShaper(_skFont.Typeface) : null;
+
+                    var lhd = (textBounds.Height * LineHeight - _maxTextHeight) * 0.5f;
+                    var ao = GetAlignmentOffset(textBounds);
+
+                    if (isFirstLine && bg != LvcColor.Empty)
+                    {
+                        var c = new SKColor(bg.R, bg.G, bg.B, (byte)(bg.A * Opacity));
+                        using var bgPaint = new SKPaint { Color = c };
+
+                        context.Canvas.DrawRect(
+                            X + ao.X, Y + ao.Y - textBounds.Height, size.Width, size.Height, bgPaint);
+                    }
+                    if (_skFont.Typeface is not null)
+                    {
+                        context.Canvas.DrawShapedText(
+                            line, X + ao.X + p.Left, Y + ao.Y + p.Top + lhd + verticalPos, _skFont, paint);
+                        //using (var _shaper = new SKShaper(_skFont.Typeface))
+                        //{
+                        //    context.Canvas.DrawShapedText(
+                        //        _shaper, line, X + ao.X + p.Left, Y + ao.Y + p.Top + lhd + verticalPos, _skFont, paint);
+                        //}
+                        //context.Canvas.DrawShapedText(
+                        //    shaper, line, X + ao.X + p.Left, Y + ao.Y + p.Top + lhd + verticalPos, _skFont, paint);
+                    }
+                    else
+                    {
+                        context.Canvas.DrawText(line, X + ao.X + p.Left, Y + ao.Y + p.Top + lhd + verticalPos, _skFont, paint);
+                    }
+                    //}
+
+        #else*/
+
         paint.TextSize = TextSize;
 
         var p = Padding;
@@ -91,11 +171,17 @@ public class LabelGeometry : BaseLabelGeometry, IDrawnElement<SkiaSharpDrawingCo
             {
                 context.Canvas.DrawShapedText(
                     shaper, line, X + ao.X + p.Left, Y + ao.Y + p.Top + lhd + verticalPos, paint);
+                //context.Canvas.DrawShapedText(
+                //    line, X + ao.X + p.Left, Y + ao.Y + p.Top + lhd + verticalPos, paint);
+
             }
             else
             {
                 context.Canvas.DrawText(line, X + ao.X + p.Left, Y + ao.Y + p.Top + lhd + verticalPos, paint);
             }
+
+            //#endif
+
 
 #if DEBUG
             if (ShowDebugLines)
@@ -123,6 +209,12 @@ public class LabelGeometry : BaseLabelGeometry, IDrawnElement<SkiaSharpDrawingCo
             isFirstLine = false;
         }
 
+        //Create SKFont and Dispose every draw????!!!
+        //#if UseLatestSkiaSharpVersion
+        //        _skFont?.Dispose();
+        //        _skFont = null;
+        //#endif
+        //
         shaper?.Dispose();
     }
 
@@ -137,6 +229,14 @@ public class LabelGeometry : BaseLabelGeometry, IDrawnElement<SkiaSharpDrawingCo
         var skiaPaint = (SkiaPaint)Paint;
         var typeface = skiaPaint.GetSKTypeface();
 
+        //#if UseLatestSkiaSharpVersion
+        //        using var font = new SKFont(typeface, TextSize);
+        //        using var p = new SKPaint
+        //        {
+        //            IsAntialias = skiaPaint.IsAntialias,
+        //            StrokeWidth = skiaPaint.StrokeThickness
+        //        };
+        //#else
         using var p = new SKPaint
         {
             IsAntialias = skiaPaint.IsAntialias,
@@ -144,6 +244,7 @@ public class LabelGeometry : BaseLabelGeometry, IDrawnElement<SkiaSharpDrawingCo
             TextSize = TextSize,
             Typeface = typeface
         };
+        //#endif
 
         var w = 0f;
         _maxTextHeight = 0f;
@@ -152,7 +253,12 @@ public class LabelGeometry : BaseLabelGeometry, IDrawnElement<SkiaSharpDrawingCo
         foreach (var line in GetLines(p))
         {
             var bounds = new SKRect();
+
+            //#if UseLatestSkiaSharpVersion
+            //            _ = font.MeasureText(line, out bounds, paint: p);
+            //#else
             _ = p.MeasureText(line, ref bounds);
+            //#endif
 
             if (bounds.Width > w) w = bounds.Width;
             if (bounds.Height > _maxTextHeight) _maxTextHeight = bounds.Height;
@@ -165,7 +271,7 @@ public class LabelGeometry : BaseLabelGeometry, IDrawnElement<SkiaSharpDrawingCo
         // Disposing typefaces could cause render issues (Blazor) at least on SkiaSharp (2.88.3)
         // Could this cause memory leaks?
         // Should the user dispose typefaces manually?
-        // typeface.Dispose();
+        //typeface.Dispose();
 
         var size = new LvcSize(
             w + Padding.Left + Padding.Right,
@@ -263,4 +369,13 @@ public class LabelGeometry : BaseLabelGeometry, IDrawnElement<SkiaSharpDrawingCo
 
         return new(l, t);
     }
+
+    //    public override void Dispose()
+    //    {
+    //#if UseLatestSkiaSharpVersion
+    //        _skFont?.Dispose();
+    //        _skFont = null;
+    //#endif
+    //        base.Dispose();
+    //    }
 }

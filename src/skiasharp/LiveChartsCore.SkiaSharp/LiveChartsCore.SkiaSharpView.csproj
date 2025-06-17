@@ -56,12 +56,15 @@
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
+
+    <DefineConstants Condition="'$(TargetFramework)' == 'net9.0-windows'">$(DefineConstants);UseLatestSkiaSharpVersion</DefineConstants>
+
   </PropertyGroup>
 
   <PropertyGroup>
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
   </PropertyGroup>
-
+  
   <PropertyGroup>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
@@ -70,8 +73,12 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 
-    <PackageReference Condition="'$(TargetFramework)' == 'net9.0-windows'" Include="SkiaSharp " Version="$(LatestSkiaSharpVersion)" />
-    <PackageReference Condition="'$(TargetFramework)' == 'net9.0-windows'" Include="SkiaSharp.HarfBuzz " Version="$(LatestSkiaSharpVersion)" />
+    <!--Use skiaSharp v2 for now-->
+    <PackageReference Condition="'$(TargetFramework)' == 'net9.0-windows'" Include="SkiaSharp " Version="$(SkiaSharpVersion)" />
+    <PackageReference Condition="'$(TargetFramework)' == 'net9.0-windows'" Include="SkiaSharp.HarfBuzz " Version="$(SkiaSharpVersion)" />
+
+    <!--<PackageReference Condition="'$(TargetFramework)' == 'net9.0-windows'" Include="SkiaSharp " Version="$(LatestSkiaSharpVersion)" />
+    <PackageReference Condition="'$(TargetFramework)' == 'net9.0-windows'" Include="SkiaSharp.HarfBuzz " Version="$(LatestSkiaSharpVersion)" />-->
 
     <PackageReference Condition="'$(TargetFramework)' != 'net9.0-windows'" Include="SkiaSharp " Version="$(SkiaSharpVersion)" />
     <PackageReference Condition="'$(TargetFramework)' != 'net9.0-windows'" Include="SkiaSharp.HarfBuzz " Version="$(SkiaSharpVersion)" />

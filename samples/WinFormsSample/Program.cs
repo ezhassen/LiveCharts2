@@ -1,21 +1,23 @@
 ﻿using System;
 using System.Windows.Forms;
-using LiveChartsCore; // mark
+using LiveChartsCore;
+using LiveChartsCore.SkiaSharpView;
+using SkiaSharp; // mark
 
 namespace WinFormsSample;
 
-static class Program
+internal static class Program
 {
     /// <summary>
     ///  The main entry point for the application.
     /// </summary>
     [STAThread]
-    static void Main()
+    private static void Main()
     {
         LiveCharts.Configure(config => // mark
            config // mark
-               // you can override the theme 
-               // .AddDarkTheme() // mark 
+                  // you can override the theme 
+                  // .AddDarkTheme() // mark 
 
                // In case you need a non-Latin based font, you must register a typeface for SkiaSharp
                //.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('汉')) // <- Chinese // mark
@@ -29,11 +31,10 @@ static class Program
                // finally register your own mappers
                // you can learn more about mappers at:
                // https://livecharts.dev/docs/{{ platform }}/{{ version }}/Overview.Mappers
-
                // here we use the index as X, and the population as Y // mark
                .HasMap<City>((city, index) => new(index, city.Population)) // mark
-               // .HasMap<Foo>( .... ) // mark
-               // .HasMap<Bar>( .... ) // mark
+                                                                           // .HasMap<Foo>( .... ) // mark
+                                                                           // .HasMap<Bar>( .... ) // mark
        ); // mark
 
         _ = Application.SetHighDpiMode(HighDpiMode.SystemAware);

@@ -22,7 +22,11 @@
 
 using System;
 using System.Windows.Forms;
+#if UseCustomViewBuild
+using SkiaSharpEzz.Views.Desktop;
+#else
 using SkiaSharp.Views.Desktop;
+#endif
 
 namespace LiveChartsCore.SkiaSharpView.WinForms
 {
@@ -56,11 +60,29 @@ namespace LiveChartsCore.SkiaSharpView.WinForms
         {
             if (LiveCharts.UseGPU)
             {
-#if NET6_0_OR_GREATER
+#if UseCustomViewBuild
                 // workaround #250115
-                this._skglControl = new SKGLControl();
+                this._skglControl = new SKGLControlEzz();
+#if NET9_0_OR_GREATER
+                this._skglControl.Size = new System.Drawing.Size(1000, 1000);
+                this._skglControl.Dock = DockStyle.Fill;
+#else
                 this._skglControl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
                 this._skglControl.Size = new System.Drawing.Size(1000, 1000);
+#endif
+                this._skglControl.TabIndex = 1;
+                this._skglControl.PaintSurface += new System.EventHandler<SkiaSharp.Views.Desktop.SKPaintGLSurfaceEventArgs>(this.SkglControl_PaintSurface);
+                this.Controls.Add(this._skglControl);
+#elif NET6_0_OR_GREATER
+                // workaround #250115
+                this._skglControl = new SKGLControl();
+//#if NET9_0_OR_GREATER
+//                this._skglControl.Size = new System.Drawing.Size(1000, 1000);
+//                this._skglControl.Dock = DockStyle.Fill;
+//#else
+                this._skglControl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+                this._skglControl.Size = new System.Drawing.Size(1000, 1000);
+//#endif
                 this._skglControl.TabIndex = 1;
                 this._skglControl.PaintSurface += new System.EventHandler<SKPaintGLSurfaceEventArgs>(this.SkglControl_PaintSurface);
                 this.Controls.Add(this._skglControl);
@@ -72,11 +94,23 @@ namespace LiveChartsCore.SkiaSharpView.WinForms
             }
             else
             {
+
+#if UseCustomViewBuild
+                this._skControl = new SKControlEzz();
+#else
                 this._skControl = new SKControl();
+#endif
+
+#if NET9_0_OR_GREATER
+                this._skControl.Size = new System.Drawing.Size(1000, 1000);
+                this._skControl.Dock = DockStyle.Fill;
+#else
                 this._skControl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
                 this._skControl.Size = new System.Drawing.Size(1000, 1000);
+#endif
+
                 this._skControl.TabIndex = 1;
-                this._skControl.PaintSurface += new System.EventHandler<SKPaintSurfaceEventArgs>(this.SkControl_PaintSurface);
+                this._skControl.PaintSurface += new System.EventHandler<SkiaSharp.Views.Desktop.SKPaintSurfaceEventArgs>(this.SkControl_PaintSurface);
                 this.Controls.Add(this._skControl);
             }
 
@@ -86,13 +120,21 @@ namespace LiveChartsCore.SkiaSharpView.WinForms
             this.ResumeLayout(false);
         }
 
-#endregion
+        #endregion
 
+#if UseCustomViewBuild
+        private SKControlEzz _skControl;
+#else
         private SKControl _skControl;
+#endif
 
-#if NET6_0_OR_GREATER
         // workaround #250115
+#if NET6_0_OR_GREATER
+#if UseCustomViewBuild
+        private SKGLControlEzz _skglControl;
+#else
         private SKGLControl _skglControl;
+#endif
 #endif
     }
 }
