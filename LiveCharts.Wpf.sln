@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFSample", "samples\WPFSam
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModelsSamples", "samples\ViewModelsSamples\ViewModelsSamples.csproj", "{5277BE83-B525-48E3-8D41-CDE647A15A3A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveChartsCore.SkiaSharpView.WPFGL", "src\skiasharp\LiveChartsCore.SkiaSharpView.WPFGL\LiveChartsCore.SkiaSharpView.WPFGL.csproj", "{F6651DAC-2777-4914-8D5A-632A62720306}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFSampleGL", "samples\WPFSampleGL\WPFSampleGL.csproj", "{C18C0D79-99FE-4B49-A20F-73BB0B51427E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{5277BE83-B525-48E3-8D41-CDE647A15A3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5277BE83-B525-48E3-8D41-CDE647A15A3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5277BE83-B525-48E3-8D41-CDE647A15A3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6651DAC-2777-4914-8D5A-632A62720306}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6651DAC-2777-4914-8D5A-632A62720306}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6651DAC-2777-4914-8D5A-632A62720306}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6651DAC-2777-4914-8D5A-632A62720306}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C18C0D79-99FE-4B49-A20F-73BB0B51427E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C18C0D79-99FE-4B49-A20F-73BB0B51427E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C18C0D79-99FE-4B49-A20F-73BB0B51427E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C18C0D79-99FE-4B49-A20F-73BB0B51427E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

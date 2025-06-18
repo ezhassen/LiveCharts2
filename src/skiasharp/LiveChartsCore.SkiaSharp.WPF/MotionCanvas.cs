@@ -24,16 +24,7 @@ using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using LiveChartsCore.Motion;
-using LiveChartsCore.SkiaSharpView.Drawing;
-using SkiaSharp;
-using SkiaSharp.Views.Desktop;
-#if UseCustomViewBuild
-using SkiaSharpEzz.Views.WPF;
-#else
-using SkiaSharp.Views.WPF;
-#endif
 
 namespace LiveChartsCore.SkiaSharpView.WPF;
 
@@ -44,21 +35,7 @@ namespace LiveChartsCore.SkiaSharpView.WPF;
 public class MotionCanvas : UserControl
 {
 
-#if UseCustomViewBuild
-    private SKElementEzz? _skiaElement;
-#if NET6_0_OR_GREATER
-    // workaround #250115
-    private SKGLElement? _skiaGlElement;
-#endif
-#else
- private SKElement? _skiaElement;
-#if NET6_0_OR_GREATER
-    // workaround #250115
-    private SKGLElement? _skiaGlElement;
-#endif
-#endif
-
-
+    private FrameworkElement? _renderFrameworkElement;
 
     private bool _isDrawingLoopRunning = false;
 
@@ -79,51 +56,10 @@ public class MotionCanvas : UserControl
     /// </value>
     public CoreMotionCanvas CanvasCore { get; } = new();
 
-    /// <inheritdoc cref="OnPaintSurface(object?, SKPaintSurfaceEventArgs)" />
-    protected virtual void OnPaintSurface(object? sender, SKPaintSurfaceEventArgs args)
-    {
-        var density = GetPixelDensity();
-        args.Surface.Canvas.Scale(density.dpix, density.dpiy);
-        CanvasCore.DrawFrame(
-            new SkiaSharpDrawingContext(CanvasCore, args.Info, args.Surface, args.Surface.Canvas));
-    }
-
-    /// <inheritdoc cref="OnPaintGlSurface(object?, SKPaintGLSurfaceEventArgs)" />
-    protected virtual void OnPaintGlSurface(object? sender, SKPaintGLSurfaceEventArgs args)
-    {
-        var density = GetPixelDensity();
-        args.Surface.Canvas.Scale(density.dpix, density.dpiy);
-
-        var c = (((Control)Parent).Background is not SolidColorBrush bg)
-            ? Colors.White
-            : bg.Color;
-
-        CanvasCore.DrawFrame(
-            new SkiaSharpDrawingContext(CanvasCore, args.Info, args.Surface, args.Surface.Canvas)
-            {
-                Background = new SKColor(c.R, c.G, c.B)
-            });
-    }
-
     private void InitializeElement()
     {
-        if (LiveCharts.UseGPU)
-        {
-#if NET6_0_OR_GREATER
-            // workaround #250115
-            Content = _skiaGlElement = new SKGLElement();
-            _skiaGlElement.PaintSurface += OnPaintGlSurface;
-#else
-            throw new PlatformNotSupportedException(
-                "GPU rendering is only supported in .NET 6.0 or greater, " +
-                "because https://github.com/mono/SkiaSharp/issues/3111 needs to be fixed.");
-#endif
-        }
-        else
-        {
-            Content = _skiaElement = new SKElement();
-            _skiaElement.PaintSurface += OnPaintSurface;
-        }
+        _renderFrameworkElement = WPFSettings.FuncInitializeRenderFrameworkElement(CanvasCore, this);
+        Content = _renderFrameworkElement;
     }
 
     private ResolutionHelper GetPixelDensity()
@@ -161,11 +97,7 @@ public class MotionCanvas : UserControl
 
         while (!CanvasCore.IsValid)
         {
-            _skiaElement?.InvalidateVisual();
-#if NET6_0_OR_GREATER
-            // workaround #250115
-            _skiaGlElement?.InvalidateVisual();
-#endif
+            _renderFrameworkElement?.InvalidateVisual();
             await Task.Delay(ts);
         }
 

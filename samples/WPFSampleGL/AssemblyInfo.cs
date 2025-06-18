@@ -1,4 +1,4 @@
-﻿// The MIT License(MIT)
+// The MIT License(MIT)
 //
 // Copyright(c) 2021 Alberto Rodriguez Orozco & LiveCharts Contributors
 //
@@ -20,45 +20,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System;
-using System.Windows.Forms;
-using LiveChartsCore.Motion;
-using LiveChartsCore.SkiaSharpView.Drawing;
-using SkiaSharpEzz.Views.Desktop;
+using System.Windows;
 
-namespace LiveChartsCore.SkiaSharpView.WinForms;
-
-/// <summary>
-/// WinForms Settings for rendering
-/// </summary>
-public static class WinFormsSettings
-{
-
-    private static Func<CoreMotionCanvas, Control>? s_funcInitializeRenderControl;
-    /// <summary>
-    /// To Get render Control
-    /// </summary>
-    public static Func<CoreMotionCanvas, Control> FuncInitializeRenderControl
-    {
-        get
-        {
-            s_funcInitializeRenderControl ??= GetNativeRenderControl;
-            return s_funcInitializeRenderControl;
-        }
-
-        set => s_funcInitializeRenderControl = value;
-    }
-
-    private static Control GetNativeRenderControl(CoreMotionCanvas CanvasCore)
-    {
-        var _skControl = new SKControl();
-
-        _skControl.PaintSurface += (ss, ee) =>
-        {
-            CanvasCore.DrawFrame(
-            new SkiaSharpDrawingContext(CanvasCore, ee.Info, ee.Surface, ee.Surface.Canvas));
-        };
-
-        return _skControl;
-    }
-}
+[assembly: ThemeInfo(
+    ResourceDictionaryLocation.None,            //where theme specific resource dictionaries are located
+                                                //(used if a resource is not found in the page,
+                                                // or application resource dictionaries)
+    ResourceDictionaryLocation.SourceAssembly   //where the generic resource dictionary is located
+                                                //(used if a resource is not found in the page,
+                                                // app, or any theme specific resource dictionaries)
+)]

@@ -34,7 +34,10 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
-    <RepositoryUrl>https://github.com/beto-rodriguez/LiveCharts2</RepositoryUrl>
+    <!--For showing custom build package in Github page-->
+    <RepositoryUrl>https://github.com/ezhassen/LiveCharts2</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/ezhassen/LiveCharts2</PackageProjectUrl>
+    <PackageId>LiveChartsCoreEzz.SkiaSharpView.WPF</PackageId>
 
     <Deterministic>true</Deterministic>
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
@@ -84,7 +87,7 @@
     <!--Just use skiaSharp v2 for now-->
     <PackageReference Include="SkiaSharp.HarfBuzz" Version="$(SkiaSharpVersion)" />
     <PackageReference Condition="!$(DefineConstants.Contains('UseCustomViewBuild'))" Include="SkiaSharp.Views.WPF" Version="$(SkiaSharpVersion)" />
-    <PackageReference Condition="$(DefineConstants.Contains('UseCustomViewBuild'))" Include="SkiaSharpEzz.Views.WPFv2" Version="2.88.9" />
+    <PackageReference Condition="$(DefineConstants.Contains('UseCustomViewBuild'))" Include="SkiaSharpEzz.Views.WPFv2" Version="2.88.12" />
 
   </ItemGroup>
 

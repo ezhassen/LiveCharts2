@@ -1,12 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
-    <LangVersion>$(GlobalLangVersion)</LangVersion>
     <Nullable>enable</Nullable>
+    <LangVersion>$(GlobalLangVersion)</LangVersion>
+    <UseWPF>true</UseWPF>
 
-    <OutputType>WinExe</OutputType>
-    <UseWindowsForms>true</UseWindowsForms>
-    <OutputType>Library</OutputType>
     <TargetFrameworks>
       net462;
       <!--
@@ -21,16 +19,15 @@
       -->
       net6.0-windows;
       net8.0-windows;
-      <!--net6.0-windows10.0.19041.0;
-      net8.0-windows10.0.19041.0;-->
+      <!--net6.0-windows10.0.19041;
+      net8.0-windows10.0.19041-->
       net9.0-windows;
     </TargetFrameworks>
-
-    <AssemblyName>LiveChartsCore.SkiaSharpView.WinFormsGL</AssemblyName>
-    <RootNamespace>LiveChartsCore.SkiaSharpView.WinForms</RootNamespace>
+    <AssemblyName>LiveChartsCore.SkiaSharpView.WPFGL</AssemblyName>
+    <RootNamespace>LiveChartsCore.SkiaSharpView.WPF</RootNamespace>
     <Version>$(LiveChartsVersion)</Version>
     <PackageIcon>icon.png</PackageIcon>
-    <Description>Simple, flexible, interactive and powerful data visualization for WindowsForms. (A fork To be used in .net9.0-windows without dependency issues)</Description>
+    <Description>Simple, flexible, interactive and powerful data visualization for WPF. (A fork To be used without dependency issues)</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>$(LiveChartsAuthors)</Authors>
     <IncludeSymbols>true</IncludeSymbols>
@@ -40,16 +37,13 @@
     <!--For showing custom build package in Github page-->
     <RepositoryUrl>https://github.com/ezhassen/LiveCharts2</RepositoryUrl>
     <PackageProjectUrl>https://github.com/ezhassen/LiveCharts2</PackageProjectUrl>
-    <PackageId>LiveChartsCoreEzz.SkiaSharpView.WinFormsGL</PackageId>
-
+    <PackageId>LiveChartsCoreEzz.SkiaSharpView.WPFGL</PackageId>
 
     <Deterministic>true</Deterministic>
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
 
-    <!--<DefineConstants Condition="'$(TargetFramework)' == 'net9.0-windows'">$(DefineConstants);UseLatestSkiaSharpVersion</DefineConstants>-->
-    <!--<DefineConstants Condition="'$(TargetFramework)' != 'net462'">$(DefineConstants);UseCustomViewBuild</DefineConstants>-->
     <DefineConstants>$(DefineConstants);UseCustomViewBuild</DefineConstants>
   </PropertyGroup>
 
@@ -72,24 +66,37 @@
     On net 462 the code will throw when LiveCharts.UseGPU is set to true, and will
     explain the user that the feature is not supported on net 462.
     -->
-    <PackageReference Condition="!$(DefineConstants.Contains('UseCustomViewBuild'))" Include="SkiaSharp.Views.WindowsForms " Version="$(SkiaSharpVersion)" />
-    <!--<PackageReference Condition="'$(DefineConstants.Contains('UseCustomViewBuild'))' == 'false'" Include="SkiaSharp.HarfBuzz" Version="$(SkiaSharpVersion)" />-->
 
-    <PackageReference Include="SkiaSharp.HarfBuzz" Version="$(SkiaSharpVersion)" />
+    <!--<PackageReference
+      Condition="'$(TargetFramework)' == 'net462'"
+      Include="SkiaSharp.Views.WPF"
+      Version="$(SkiaSharpVersion)" />
+    <PackageReference
+      Condition="'$(TargetFramework)' == 'net462'"
+      Include="SkiaSharp.HarfBuzz"
+      Version="$(SkiaSharpVersion)" />
 
-    <!--Custom build of SkiaSharpEzz.Views.WindowsForms for net9.0-windows only-->
-    <!--<PackageReference Condition="'$(TargetFramework)' == 'net9.0-windows'" Include="SkiaSharpEzz.Views.WindowsForms " Version="3.119.0" />-->
+    <PackageReference
+      Condition="'$(TargetFramework)' != 'net462'"
+      Include="SkiaSharp.Views.WPF"
+      Version="$(LatestSkiaSharpVersion)" />
+    <PackageReference
+      Condition="'$(TargetFramework)' != 'net462'"
+      Include="SkiaSharp.HarfBuzz"
+      Version="$(LatestSkiaSharpVersion)" />-->
     <!--Just use skiaSharp v2 for now-->
-    <PackageReference Condition="$(DefineConstants.Contains('UseCustomViewBuild'))" Include="SkiaSharpEzz.Views.WindowsFormsGLV2" Version="2.88.12" />
+    <!--<PackageReference Include="SkiaSharp.HarfBuzz" Version="$(SkiaSharpVersion)" />
+    <PackageReference Condition="!$(DefineConstants.Contains('UseCustomViewBuild'))" Include="SkiaSharp.Views.WPF" Version="$(SkiaSharpVersion)" />-->
+    <PackageReference Condition="$(DefineConstants.Contains('UseCustomViewBuild'))" Include="SkiaSharpEzz.Views.WPFGLv2" Version="2.88.12" />
 
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LiveChartsCore.SkiaSharp.WPF\LiveChartsCore.SkiaSharpView.WPF.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="images\icon.png" Pack="true" PackagePath="\" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <ProjectReference Include="..\LiveChartsCore.SkiaSharp.WinForms\LiveChartsCore.SkiaSharpView.WinForms.csproj" />
   </ItemGroup>
 
 </Project>

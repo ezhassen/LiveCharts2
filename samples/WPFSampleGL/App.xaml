@@ -1,0 +1,13 @@
+﻿<Application
+    x:Class="WPFSampleGL.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:WPFSampleGL"
+    xmlns:wpfs="clr-namespace:WPFSample;assembly=WPFSample">
+    <Application.Resources />
+
+    <!--  StartupUri="pack://application:,,,/WPFSampleGL;component/MainWindow.xaml"  -->
+    <Application.MainWindow>
+        <wpfs:MainWindow Visibility="Visible" />
+    </Application.MainWindow>
+</Application>
