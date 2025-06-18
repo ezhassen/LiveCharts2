@@ -57,7 +57,7 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
 
-    <DefineConstants Condition="'$(TargetFramework)' == 'net9.0-windows'">$(DefineConstants);UseLatestSkiaSharpVersion</DefineConstants>
+    <!--<DefineConstants Condition="'$(TargetFramework)' == 'net9.0-windows'">$(DefineConstants);UseLatestSkiaSharpVersion</DefineConstants>-->
 
   </PropertyGroup>
 
@@ -74,18 +74,18 @@
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 
     <!--Use skiaSharp v2 for now-->
-    <PackageReference Condition="'$(TargetFramework)' == 'net9.0-windows'" Include="SkiaSharp " Version="$(SkiaSharpVersion)" />
-    <PackageReference Condition="'$(TargetFramework)' == 'net9.0-windows'" Include="SkiaSharp.HarfBuzz " Version="$(SkiaSharpVersion)" />
+    <!--<PackageReference Condition="'$(TargetFramework)' == 'net9.0-windows'" Include="SkiaSharp " Version="$(SkiaSharpVersion)" />
+    <PackageReference Condition="'$(TargetFramework)' == 'net9.0-windows'" Include="SkiaSharp.HarfBuzz " Version="$(SkiaSharpVersion)" />-->
 
     <!--<PackageReference Condition="'$(TargetFramework)' == 'net9.0-windows'" Include="SkiaSharp " Version="$(LatestSkiaSharpVersion)" />
     <PackageReference Condition="'$(TargetFramework)' == 'net9.0-windows'" Include="SkiaSharp.HarfBuzz " Version="$(LatestSkiaSharpVersion)" />-->
 
-    <PackageReference Condition="'$(TargetFramework)' != 'net9.0-windows'" Include="SkiaSharp " Version="$(SkiaSharpVersion)" />
-    <PackageReference Condition="'$(TargetFramework)' != 'net9.0-windows'" Include="SkiaSharp.HarfBuzz " Version="$(SkiaSharpVersion)" />
+    <!--<PackageReference Condition="'$(TargetFramework)' != 'net9.0-windows'" Include="SkiaSharp " Version="$(SkiaSharpVersion)" />
+    <PackageReference Condition="'$(TargetFramework)' != 'net9.0-windows'" Include="SkiaSharp.HarfBuzz " Version="$(SkiaSharpVersion)" />-->
 
 
-    <!--<PackageReference Include="SkiaSharp" Version="$(SkiaSharpVersion)" />
-    <PackageReference Include="SkiaSharp.HarfBuzz" Version="$(SkiaSharpVersion)" />-->
+    <PackageReference Include="SkiaSharp" Version="$(SkiaSharpVersion)" />
+    <PackageReference Include="SkiaSharp.HarfBuzz" Version="$(SkiaSharpVersion)" />
 
 
   </ItemGroup>

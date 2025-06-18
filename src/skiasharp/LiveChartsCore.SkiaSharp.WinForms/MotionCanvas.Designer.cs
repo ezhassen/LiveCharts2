@@ -58,21 +58,43 @@ namespace LiveChartsCore.SkiaSharpView.WinForms
         /// </summary>
         private void InitializeComponent()
         {
+#if NET6_0_OR_GREATER //UseGPU only for NET6_0_OR_GREATER
             if (LiveCharts.UseGPU)
             {
-#if UseCustomViewBuild
-                // workaround #250115
-                this._skglControl = new SKGLControlEzz();
-#if NET9_0_OR_GREATER
-                this._skglControl.Size = new System.Drawing.Size(1000, 1000);
-                this._skglControl.Dock = DockStyle.Fill;
+                InitializeComponent_UseGPU();
+            }
+            else
+            {
+                InitializeComponent_M();
+            }
 #else
-                this._skglControl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-                this._skglControl.Size = new System.Drawing.Size(1000, 1000);
+            InitializeComponent_M();
 #endif
-                this._skglControl.TabIndex = 1;
-                this._skglControl.PaintSurface += new System.EventHandler<SkiaSharp.Views.Desktop.SKPaintGLSurfaceEventArgs>(this.SkglControl_PaintSurface);
-                this.Controls.Add(this._skglControl);
+
+
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+
+            this.ResumeLayout(false);
+        }
+
+
+        private void InitializeComponent_UseGPU()
+        {
+#if NET6_0_OR_GREATER
+#if UseCustomViewBuild
+            // workaround #250115
+            this._skglControl = new SKGLControlEzz();
+#if NET9_0_OR_GREATER
+            this._skglControl.Size = new System.Drawing.Size(1000, 1000);
+            this._skglControl.Dock = DockStyle.Fill;
+#else
+            this._skglControl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            this._skglControl.Size = new System.Drawing.Size(1000, 1000);
+#endif
+            this._skglControl.TabIndex = 1;
+            this._skglControl.PaintSurface += new System.EventHandler<SkiaSharp.Views.Desktop.SKPaintGLSurfaceEventArgs>(this.SkglControl_PaintSurface);
+            this.Controls.Add(this._skglControl);
 #elif NET6_0_OR_GREATER
                 // workaround #250115
                 this._skglControl = new SKGLControl();
@@ -91,50 +113,47 @@ namespace LiveChartsCore.SkiaSharpView.WinForms
                     "GPU rendering is only supported in .NET 6.0 or greater, " +
                     "because https://github.com/mono/SkiaSharp/issues/3111 needs to be fixed.");
 #endif
-            }
-            else
-            {
+#endif
+        }
+
+        private void InitializeComponent_M()
+        {
 
 #if UseCustomViewBuild
-                this._skControl = new SKControlEzz();
+            this._skControl = new SKControlEzz();
 #else
                 this._skControl = new SKControl();
 #endif
 
 #if NET9_0_OR_GREATER
-                this._skControl.Size = new System.Drawing.Size(1000, 1000);
-                this._skControl.Dock = DockStyle.Fill;
+            this._skControl.Size = new System.Drawing.Size(1000, 1000);
+            this._skControl.Dock = DockStyle.Fill;
 #else
-                this._skControl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-                this._skControl.Size = new System.Drawing.Size(1000, 1000);
+            this._skControl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            this._skControl.Size = new System.Drawing.Size(1000, 1000);
 #endif
 
-                this._skControl.TabIndex = 1;
-                this._skControl.PaintSurface += new System.EventHandler<SkiaSharp.Views.Desktop.SKPaintSurfaceEventArgs>(this.SkControl_PaintSurface);
-                this.Controls.Add(this._skControl);
-            }
-
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-
-            this.ResumeLayout(false);
+            this._skControl.TabIndex = 1;
+            this._skControl.PaintSurface += new System.EventHandler<SkiaSharp.Views.Desktop.SKPaintSurfaceEventArgs>(this.SkControl_PaintSurface);
+            this.Controls.Add(this._skControl);
         }
 
         #endregion
 
+
 #if UseCustomViewBuild
         private SKControlEzz _skControl;
-#else
-        private SKControl _skControl;
-#endif
-
         // workaround #250115
 #if NET6_0_OR_GREATER
-#if UseCustomViewBuild
         private SKGLControlEzz _skglControl;
+#endif
 #else
+        private SKControl _skControl;
+        // workaround #250115
+#if NET6_0_OR_GREATER
         private SKGLControl _skglControl;
 #endif
 #endif
+
     }
 }

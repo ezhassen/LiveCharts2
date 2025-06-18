@@ -49,7 +49,8 @@
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     
     <!--<DefineConstants Condition="'$(TargetFramework)' == 'net9.0-windows'">$(DefineConstants);UseLatestSkiaSharpVersion</DefineConstants>-->
-    <DefineConstants Condition="'$(TargetFramework)' != 'net462'">$(DefineConstants);UseCustomViewBuild</DefineConstants>
+    <!--<DefineConstants Condition="'$(TargetFramework)' != 'net462'">$(DefineConstants);UseCustomViewBuild</DefineConstants>-->
+    <DefineConstants>$(DefineConstants);UseCustomViewBuild</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -78,17 +79,12 @@
     
     <!--Custom build of SkiaSharpEzz.Views.WindowsForms for net9.0-windows only-->
     <!--<PackageReference Condition="'$(TargetFramework)' == 'net9.0-windows'" Include="SkiaSharpEzz.Views.WindowsForms " Version="3.119.0" />-->
-    
+    <!--Just use skiaSharp v2 for now-->
+    <PackageReference Condition="$(DefineConstants.Contains('UseCustomViewBuild'))" Include="SkiaSharpEzz.Views.WindowsFormsV2" Version="2.88.9" />
+
   </ItemGroup>
 
   <ItemGroup>
-
-    <!--<ProjectReference Condition="'$(DefineConstants.Contains('UseLatestSkiaSharpVersion'))' == 'true'" Include="..\..\..\..\..\Projects_Helpers\SkiaSharpEzz.Views.WindowsForms\SkiaSharpEzz.Views.WindowsFormsV2\SkiaSharpEzz.Views.WindowsForms.csproj" />
-    <ProjectReference Condition="'$(DefineConstants.Contains('UseLatestSkiaSharpVersion'))' != 'true'" Include="..\..\..\..\..\Projects_Helpers\SkiaSharpEzz.Views.WindowsForms\SkiaSharpEzz.Views.WindowsFormsV2\SkiaSharpEzz.Views.WindowsFormsV2.csproj" />-->
-
-    <!--Just use skiaSharp v2 for new-->
-    <ProjectReference Condition="$(DefineConstants.Contains('UseCustomViewBuild'))" Include="..\..\..\..\..\Projects_Helpers\SkiaSharpEzz.Views.WindowsForms\SkiaSharpEzz.Views.WindowsFormsV2\SkiaSharpEzz.Views.WindowsFormsV2.csproj" />
-
     <ProjectReference Include="..\LiveChartsCore.SkiaSharp\LiveChartsCore.SkiaSharpView.csproj" />
   </ItemGroup>
 
