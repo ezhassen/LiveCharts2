@@ -80,7 +80,7 @@
     <!--Custom build of SkiaSharpEzz.Views.WindowsForms for net9.0-windows only-->
     <!--<PackageReference Condition="'$(TargetFramework)' == 'net9.0-windows'" Include="SkiaSharpEzz.Views.WindowsForms " Version="3.119.0" />-->
     <!--Just use skiaSharp v2 for now-->
-    <PackageReference Condition="$(DefineConstants.Contains('UseCustomViewBuild'))" Include="SkiaSharpEzz.Views.WindowsFormsV2" Version="2.88.9" />
+    <PackageReference Condition="$(DefineConstants.Contains('UseCustomViewBuild'))" Include="SkiaSharpEzz.Views.WindowsFormsV2" Version="2.88.12" />
 
   </ItemGroup>
 

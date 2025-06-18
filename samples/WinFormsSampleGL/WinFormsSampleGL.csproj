@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <IsPackable>false</IsPackable>
+    <LangVersion>$(GlobalLangVersion)</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\skiasharp\LiveChartsCore.SkiaSharpView.WinFormsGL\LiveChartsCore.SkiaSharpView.WinFormsGL.csproj" />
+    <ProjectReference Include="..\WinFormsSample\WinFormsSample.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormsSample", "samples\W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModelsSamples", "samples\ViewModelsSamples\ViewModelsSamples.csproj", "{FDA82E2F-B072-421E-BE43-FB0A473E76BF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveChartsCore.SkiaSharpView.WinFormsGL", "src\skiasharp\LiveChartsCore.SkiaSharpView.WinFormsGL\LiveChartsCore.SkiaSharpView.WinFormsGL.csproj", "{09EA7613-D677-421D-84B4-B2E64BBEDF68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsSampleGL", "samples\WinFormsSampleGL\WinFormsSampleGL.csproj", "{C80A2B85-113E-4F98-B4EB-465F1A13B5C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{FDA82E2F-B072-421E-BE43-FB0A473E76BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDA82E2F-B072-421E-BE43-FB0A473E76BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDA82E2F-B072-421E-BE43-FB0A473E76BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09EA7613-D677-421D-84B4-B2E64BBEDF68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09EA7613-D677-421D-84B4-B2E64BBEDF68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09EA7613-D677-421D-84B4-B2E64BBEDF68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09EA7613-D677-421D-84B4-B2E64BBEDF68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C80A2B85-113E-4F98-B4EB-465F1A13B5C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C80A2B85-113E-4F98-B4EB-465F1A13B5C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C80A2B85-113E-4F98-B4EB-465F1A13B5C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C80A2B85-113E-4F98-B4EB-465F1A13B5C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

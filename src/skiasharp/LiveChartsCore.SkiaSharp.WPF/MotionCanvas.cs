@@ -29,7 +29,11 @@ using LiveChartsCore.Motion;
 using LiveChartsCore.SkiaSharpView.Drawing;
 using SkiaSharp;
 using SkiaSharp.Views.Desktop;
+#if UseCustomViewBuild
+using SkiaSharpEzz.Views.WPF;
+#else
 using SkiaSharp.Views.WPF;
+#endif
 
 namespace LiveChartsCore.SkiaSharpView.WPF;
 
@@ -39,11 +43,23 @@ namespace LiveChartsCore.SkiaSharpView.WPF;
 /// <seealso cref="Control" />
 public class MotionCanvas : UserControl
 {
-    private SKElement? _skiaElement;
+
+#if UseCustomViewBuild
+    private SKElementEzz? _skiaElement;
 #if NET6_0_OR_GREATER
     // workaround #250115
     private SKGLElement? _skiaGlElement;
 #endif
+#else
+ private SKElement? _skiaElement;
+#if NET6_0_OR_GREATER
+    // workaround #250115
+    private SKGLElement? _skiaGlElement;
+#endif
+#endif
+
+
+
     private bool _isDrawingLoopRunning = false;
 
     /// <summary>
