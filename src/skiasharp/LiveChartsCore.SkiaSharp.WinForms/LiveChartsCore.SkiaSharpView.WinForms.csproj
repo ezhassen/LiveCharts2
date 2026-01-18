@@ -19,18 +19,19 @@
       ideally the user should update the target to net8.0-windows10.0.19041... but the
       default template as today uses net8.0-windows and causes this issue.
       -->
-      net6.0-windows;
-      net8.0-windows;
+      <!--net6.0-windows;-->
+      <!--net8.0-windows;-->
       <!--net6.0-windows10.0.19041.0;
       net8.0-windows10.0.19041.0;-->
-      net9.0-windows;
+      <!--net9.0-windows;-->
+      net10.0-windows;
     </TargetFrameworks>
     
     <AssemblyName>LiveChartsCore.SkiaSharpView.WinForms</AssemblyName>
     <RootNamespace>LiveChartsCore.SkiaSharpView.WinForms</RootNamespace>
     <Version>$(LiveChartsVersion)</Version>
     <PackageIcon>icon.png</PackageIcon>
-    <Description>Simple, flexible, interactive and powerful data visualization for WindowsForms. (A fork To be used in .net9.0-windows without dependency issues)</Description>
+    <Description>Simple, flexible, interactive and powerful data visualization for WindowsForms. (A fork To be used in .net10.0-windows without dependency issues)</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>$(LiveChartsAuthors)</Authors>
     <IncludeSymbols>true</IncludeSymbols>
@@ -80,7 +81,7 @@
     <!--Custom build of SkiaSharpEzz.Views.WindowsForms for net9.0-windows only-->
     <!--<PackageReference Condition="'$(TargetFramework)' == 'net9.0-windows'" Include="SkiaSharpEzz.Views.WindowsForms " Version="3.119.0" />-->
     <!--Just use skiaSharp v2 for now-->
-    <PackageReference Condition="$(DefineConstants.Contains('UseCustomViewBuild'))" Include="SkiaSharpEzz.Views.WindowsFormsV2" Version="2.88.12" />
+    <PackageReference Condition="$(DefineConstants.Contains('UseCustomViewBuild'))" Include="SkiaSharpEzz.Views.WindowsFormsV2" Version="2.88.13" />
 
   </ItemGroup>
 

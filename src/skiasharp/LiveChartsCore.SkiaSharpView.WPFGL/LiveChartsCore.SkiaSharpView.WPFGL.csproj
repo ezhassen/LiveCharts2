@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <Nullable>enable</Nullable>
@@ -17,11 +17,12 @@
       ideally the user should update the target to net8.0-windows10.0.19041... but the
       default template as today uses net8.0-windows and causes this issue.
       -->
-      net6.0-windows;
-      net8.0-windows;
+      <!--net6.0-windows;
+      net8.0-windows;-->
       <!--net6.0-windows10.0.19041;
       net8.0-windows10.0.19041-->
-      net9.0-windows;
+      <!--net9.0-windows;-->
+      net10.0-windows;
     </TargetFrameworks>
     <AssemblyName>LiveChartsCore.SkiaSharpView.WPFGL</AssemblyName>
     <RootNamespace>LiveChartsCore.SkiaSharpView.WPF</RootNamespace>
@@ -87,7 +88,7 @@
     <!--Just use skiaSharp v2 for now-->
     <!--<PackageReference Include="SkiaSharp.HarfBuzz" Version="$(SkiaSharpVersion)" />
     <PackageReference Condition="!$(DefineConstants.Contains('UseCustomViewBuild'))" Include="SkiaSharp.Views.WPF" Version="$(SkiaSharpVersion)" />-->
-    <PackageReference Condition="$(DefineConstants.Contains('UseCustomViewBuild'))" Include="SkiaSharpEzz.Views.WPFGLv2" Version="2.88.12" />
+    <PackageReference Condition="$(DefineConstants.Contains('UseCustomViewBuild'))" Include="SkiaSharpEzz.Views.WPFGLv2" Version="2.88.13" />
 
   </ItemGroup>
 

@@ -6,7 +6,7 @@
 
     <TargetFrameworks>
       netstandard2.0;netstandard2.1;
-      net8.0;net8.0-android;net8.0-ios;net8.0-maccatalyst;
+      net10.0;
     </TargetFrameworks>
     <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">
       $(TargetFrameworks);
@@ -21,11 +21,12 @@
       ideally the user should update the target to net8.0-windows10.0.19041... but the
       default template as today uses net8.0-windows and causes this issue.
       -->
-      net6.0-windows;
-      net8.0-windows;
+      <!--net6.0-windows;-->
+      <!--net8.0-windows;-->
       <!--net6.0-windows10.0.19041.0;
       net8.0-windows10.0.19041.0;-->
-      net9.0-windows;
+      <!--net9.0-windows;-->
+      net10.0-windows;
     </TargetFrameworks>
 
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
@@ -40,7 +41,7 @@
     <RootNamespace>LiveChartsCore.SkiaSharpView</RootNamespace>
     <Version>$(LiveChartsVersion)</Version>
     <PackageIcon>icon.png</PackageIcon>
-    <Description>Simple, flexible, interactive and powerful data visualization for .Net, this package contains the SkiaSharp backend. (A fork To be used in .net9.0-windows without dependency issues)</Description>
+    <Description>Simple, flexible, interactive and powerful data visualization for .Net, this package contains the SkiaSharp backend. (A fork To be used in .net10.0-windows without dependency issues)</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>$(LiveChartsAuthors)</Authors>
     <IncludeSymbols>true</IncludeSymbols>
